@@ -8,11 +8,19 @@ fi
 mkdir $1
 cd $1
 npm init -y
-npm install --save-dev husky prettier eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser esbuild dotenv
-touch .eslintignore .eslintrc.json .prettierrc .env .gitignore
+npm install --save-dev husky prettier eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser esbuild dotenv 
+touch .eslintignore .eslintrc.json .prettierrc .env .gitignore README.web_modules
 mkdir src
 touch src/index.ts
 
+cat <<EOF > README.md
+# $1
+GetStart
+
+```bash
+gh repo create
+```
+EOF
 cat <<EOF > .eslintignore
 node_modules
 EOF
@@ -180,7 +188,7 @@ npm pkg set scripts.build="esbuild src/index.ts --bundle --platform=node --outfi
 npm pkg set scripts.format="eslint src/**/*.ts --fix"
 npm pkg set scripts.pretty="prettier --write \"src/**/*.ts\""
 
-git init
+git init --initial-branch main
 
 # huskyの準備
 npm pkg set scripts.prepare="husky install"
